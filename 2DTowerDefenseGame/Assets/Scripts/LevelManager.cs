@@ -9,7 +9,12 @@ public class LevelManager : MonoBehaviour
     private GameObject[] tilePrefabs; //fields
     [SerializeField]
     private CameraMovement cameraMovement;
-
+    private Point blueSpawn;
+    private Point redSpawn;
+    [SerializeField]
+    private GameObject bluePortalPrefab;
+    [SerializeField]
+    private GameObject redPortalPrefab;
     public Dictionary<Point,Tile> Tiles { get; set; }
 
 
@@ -22,7 +27,7 @@ public class LevelManager : MonoBehaviour
         CreateLevel();
     }
 
-    // Update is called once per frame
+    
     void Update()
     {
         
@@ -63,6 +68,9 @@ public class LevelManager : MonoBehaviour
         //sets the boundries for the camera
         cameraMovement.SetLimits(new Vector3(maxTile.x + TileSize, maxTile.y - TileSize));
 
+        SpawnPortals();
+
+
     }
 
     private void PlaceTile(string tileType,int x, int y, Vector3 worldStart)
@@ -91,6 +99,16 @@ public class LevelManager : MonoBehaviour
 
         return data.Split('-');
 
+
+    }
+
+    private void SpawnPortals()
+    {
+        blueSpawn = new Point(0, 0);
+        Instantiate(bluePortalPrefab, Tiles[blueSpawn].GetComponent<Tile>().WorldPosition, Quaternion.identity);
+
+        redSpawn = new Point(17, 0);
+        Instantiate(redPortalPrefab, Tiles[redSpawn].GetComponent<Tile>().WorldPosition, Quaternion.identity);
 
     }
 }
