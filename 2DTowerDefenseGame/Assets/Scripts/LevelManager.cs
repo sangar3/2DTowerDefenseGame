@@ -2,13 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
-
+// this script places each tile in the game
 public class LevelManager : MonoBehaviour
 {
     [SerializeField]
     private GameObject[] tilePrefabs; //fields
     [SerializeField]
     private CameraMovement cameraMovement;
+
+    public Dictionary<Point,Tile> Tiles { get; set; }
+
 
     public float TileSize //property to calculate how big our tiles are, this is used to place out of tiles on the correct postions
     {
@@ -26,11 +29,22 @@ public class LevelManager : MonoBehaviour
     }
 
 
+
+
     private void CreateLevel() //code for automatically genertating a plot of a single tilemap when clicking play
     {
+        Tiles = new Dictionary<Point, Tile>();
+
+
+        // reading level doc 
         string[] mapData = readLevelText();
+       
+        //calculates the x map size 
         int mapX= mapData[0].ToCharArray().Length;
-        int mapY= mapData.Length;
+
+        //calculates the y map size
+        int mapY = mapData.Length;
+
         Vector3 maxTile = Vector3.zero;
 
         //finds the world start point(top letft corner of the screen)
@@ -41,24 +55,31 @@ public class LevelManager : MonoBehaviour
             char[] newTiles = mapData[y].ToCharArray();
             for (int x = 0; x < mapX; x++)//x-pos
             {
-
-                maxTile = PlaceTile(newTiles[x].ToString(),x,y,worldStart);
+                //places tiles
+                PlaceTile(newTiles[x].ToString(),x,y,worldStart);
             }
         }
+        maxTile = Tiles[new Point(mapX - 1, mapY - 1)].transform.position;
+        //sets the boundries for the camera
         cameraMovement.SetLimits(new Vector3(maxTile.x + TileSize, maxTile.y - TileSize));
 
     }
 
-    private Vector3 PlaceTile(string tileType,int x, int y, Vector3 worldStart)
+    private void PlaceTile(string tileType,int x, int y, Vector3 worldStart)
     {
         //turns string into number
         int tileIndex = int.Parse(tileType);
 
-        //makes a new ile and makes a refernece to that tile in the newtile var
-        GameObject newTile = Instantiate(tilePrefabs[tileIndex]);
+        //makes a new tile and makes a refernece to that tile in the newtile var
+        Tile newTile = Instantiate(tilePrefabs[tileIndex]).GetComponent<Tile>();
         //change position of tile 
-        newTile.transform.position = new Vector3(worldStart.x+ (TileSize * x), worldStart.y - (TileSize * y), 0);
-        return newTile.transform.position;
+
+
+        newTile.Setup(new Point(x, y), new Vector3(worldStart.x + (TileSize * x), worldStart.y - (TileSize * y), 0));
+
+        Tiles.Add(new Point(x, y), newTile);
+
+        
 
     }
 
