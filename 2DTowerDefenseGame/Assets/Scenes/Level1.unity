@@ -257,6 +257,7 @@ MonoBehaviour:
   - {fileID: 8975439598873365142, guid: 688640fa428ac3444b6aeb82b032e532, type: 3}
   - {fileID: 1879031508493662726, guid: d7d3918935de49746b55d101f0609ac6, type: 3}
   - {fileID: 511714920566337069, guid: 0e440929b3d25fb448607cb1e0e4a021, type: 3}
+  map: {fileID: 1428103847}
   cameraMovement: {fileID: 264203977}
   bluePortalPrefab: {fileID: 4242078414055671862, guid: 60d680547c4258c4499ce4a175cd062a,
     type: 3}
@@ -275,4 +276,34 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1428103846
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1428103847}
+  m_Layer: 0
+  m_Name: Map
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1428103847
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1428103846}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

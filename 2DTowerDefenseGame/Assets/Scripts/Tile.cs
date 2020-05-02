@@ -14,21 +14,15 @@ public class Tile : MonoBehaviour
         }
     }
 
-    void Start()
-    {
-        
-    }
+   
 
-    
-    void Update()
-    {
-        
-    }
-
-    public void Setup(Point gridPos, Vector3 worldPos)
+    public void Setup(Point gridPos, Vector3 worldPos,Transform parent)
     {
         this.GridPosititon = gridPos;
         transform.position = worldPos;
+        transform.SetParent(parent);
+        LevelManager.Instance.Tiles.Add(gridPos, this);
+
 
 
     }

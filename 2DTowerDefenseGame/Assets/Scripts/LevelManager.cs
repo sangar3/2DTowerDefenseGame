@@ -3,14 +3,20 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 // this script places each tile in the game
-public class LevelManager : MonoBehaviour
+public class LevelManager : Singleton<LevelManager>  //levelmanager inherhits from singlton class
 {
+    [Header("MapTiles")]
     [SerializeField]
     private GameObject[] tilePrefabs; //fields
     [SerializeField]
+    private Transform map;
+    [Header("Camera")]
+    [SerializeField]
     private CameraMovement cameraMovement;
+    
     private Point blueSpawn;
     private Point redSpawn;
+    [Header("Portals")]
     [SerializeField]
     private GameObject bluePortalPrefab;
     [SerializeField]
@@ -83,9 +89,9 @@ public class LevelManager : MonoBehaviour
         //change position of tile 
 
 
-        newTile.Setup(new Point(x, y), new Vector3(worldStart.x + (TileSize * x), worldStart.y - (TileSize * y), 0));
+        newTile.Setup(new Point(x, y), new Vector3(worldStart.x + (TileSize * x), worldStart.y - (TileSize * y), 0),map);
 
-        Tiles.Add(new Point(x, y), newTile);
+        
 
         
 
